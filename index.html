@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" manifest="cache.appcache">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>عالم الالكترونيات</title>
+<style>
+  * { box-sizing:border-box; }
+  html, body {
+    margin:0; padding:0; min-height:100%;
+    background:
+      radial-gradient(circle at 50% -10%, rgba(0,200,255,.16), transparent 38%),
+      radial-gradient(circle at 10% 90%, rgba(125,70,255,.12), transparent 32%),
+      #070a0f;
+    color:#dbe7f5;
+    font:15px/1.45 "Segoe UI", Tahoma, Arial, system-ui, sans-serif;
+  }
+  body { min-height:100vh; }
+  #brand {
+    position:relative;
+    text-align:center;
+    padding:18px 14px 16px;
+    background:linear-gradient(180deg, rgba(14,23,35,.98), rgba(8,12,18,.96));
+    border-bottom:1px solid rgba(80,180,255,.22);
+    box-shadow:0 8px 30px rgba(0,0,0,.28);
+    overflow:hidden;
+  }
+  #brand:before {
+    content:"";
+    position:absolute; left:50%; top:0; width:220px; height:2px;
+    transform:translateX(-50%);
+    background:linear-gradient(90deg, transparent, #35d9ff, transparent);
+    box-shadow:0 0 18px #35d9ff;
+  }
+  #brand .brand-icon {
+    width:58px; height:58px; display:block; margin:0 auto 9px;
+    border-radius:16px;
+    box-shadow:0 0 24px rgba(45,210,255,.28);
+  }
+  #brand b {
+    display:block;
+    font-size:25px; font-weight:800;
+    letter-spacing:.02em;
+    color:#fff;
+    text-shadow:0 0 18px rgba(44,211,255,.28);
+  }
+  #brand span {
+    display:block; margin-top:3px;
+    color:#7f94aa; font-size:11px; letter-spacing:.16em;
+    direction:ltr;
+  }
+  #wrap {
+    width:min(680px, calc(100% - 28px));
+    margin:22px auto;
+    padding:22px 20px 18px;
+    background:rgba(13,18,27,.82);
+    border:1px solid rgba(100,150,190,.16);
+    border-radius:18px;
+    box-shadow:0 18px 55px rgba(0,0,0,.35);
+    backdrop-filter:blur(8px);
+  }
+  #state {
+    font-size:24px; font-weight:800; margin:0 0 8px;
+    text-align:center; color:#eef7ff;
+  }
+  #det {
+    font-size:13px; color:#8fa1b5; margin:0 0 8px;
+    text-align:center;
+  }
+  #det b { color:#dbe7f5; font-weight:700; }
+  #cache {
+    font-size:12px; color:#667689; margin:0 0 17px;
+    min-height:18px; text-align:center;
+  }
+  #cache.cacheok { color:#79d9a0; }
+  .ok { color:#7fd0a0; } .bad { color:#ff837d; } .warn { color:#ffd66e; }
+
+  #contacts {
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px solid rgba(100,150,190,.13);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .contact {
+    display:flex; align-items:center; gap:10px;
+    padding:12px;
+    border:1px solid rgba(100,150,190,.14);
+    border-radius:12px;
+    background:rgba(255,255,255,.025);
+  }
+  .contact .phone-icon {
+    width:34px; height:34px; flex:0 0 34px;
+    display:grid; place-items:center;
+    border-radius:10px;
+    background:rgba(39,197,255,.10);
+    color:#40d8ff;
+    font-size:18px;
+  }
+  .contact small { display:block; color:#8294a8; font-size:11px; margin-bottom:2px; }
+  .contact a {
+    color:#eaf7ff; text-decoration:none; direction:ltr;
+    unicode-bidi:embed; font-weight:700; font-size:13px;
+  }
+  .contact a:hover { color:#4ddcff; }
+  @media (max-width:560px) {
+    #contacts { grid-template-columns:1fr; }
+    #wrap { padding:20px 15px 16px; }
+    #brand b { font-size:22px; }
+  }
+</style>
+</head>
+<body>
+<div id="brand">
+  <svg class="brand-icon" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-label="عالم الالكترونيات">
+    <defs>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#28d8ff"/>
+        <stop offset="1" stop-color="#755cff"/>
+      </linearGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <rect x="5" y="5" width="118" height="118" rx="30" fill="#0b121d" stroke="url(#g)" stroke-width="4"/>
+    <path d="M28 50h72v28H28z" fill="none" stroke="url(#g)" stroke-width="5" filter="url(#glow)"/>
+    <path d="M40 50V39m16 11V34m16 16V39m16 11V34" stroke="#55ddff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M38 78l-8 13m60-13 8 13" stroke="#8b79ff" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="42" cy="64" r="5" fill="#fff"/>
+    <circle cx="86" cy="64" r="5" fill="#fff"/>
+    <path d="M51 68h26" stroke="#35d9ff" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+  <b>عالم الالكترونيات</b>
+  <span>ELECTRONIC WORLD</span>
+</div>
+<div id="wrap">
+  <div id="state">detecting firmware...</div>
+  <div id="det"></div>
+  <div id="cache"></div>
+  <div id="contacts" aria-label="أرقام التواصل">
+    <div class="contact">
+      <div class="phone-icon">☎</div>
+      <div>
+        <small>حمزة البغدادي</small>
+        <a href="tel:07703548449">07703548449</a>
+      </div>
+    </div>
+    <div class="contact">
+      <div class="phone-icon">☎</div>
+      <div>
+        <small>محمد خالد</small>
+        <a href="tel:07705361282">07705361282</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+    var stateEl = document.getElementById("state");
+    var detEl = document.getElementById("det");
+    var cacheEl = document.getElementById("cache");
+    function setState(t, c) { stateEl.textContent = t; stateEl.className = c || ""; }
+    function setCache(t, ok) { cacheEl.textContent = t; cacheEl.className = ok ? "cacheok" : ""; }
+    var params = new URLSearchParams(location.search);
+
+    // Firmwares this build has a MEASURED kernel table for. jb.js still runs its
+    // own kernel-table-present gate, so this is UX only -- an unlisted firmware
+    // can still be launched with a tap. KEEP IN SYNC with ps4_offsets.js: add a
+    // fwnum here in the SAME commit that fills that firmware's kernel RVAs.
+    // The PS4 reports its minor as two hex digits in the UA (13.52 -> minor 0x52).
+    var SUPPORTED = { 1302: 1, 1304: 1, 1350: 1, 1352: 1 }; // all measured on hardware
+
+    var key = null, fwnum = null;
+    var m = /PlayStation\s+4[\/ ](\d+)\.(\d+)/.exec(navigator.userAgent);
+    if (m) {
+        var ms = parseInt(m[2], 16).toString(16);
+        if (ms.length < 2) ms = "0" + ms;
+        key = m[1] + "." + ms;
+        fwnum = parseInt(m[1], 10) * 100 + parseInt(ms, 10);
+    }
+
+    var forced = params.get("force") === "1";
+    var supported = forced || (fwnum !== null && SUPPORTED[fwnum] === 1);
+    detEl.innerHTML = "firmware <b>" + (key || "unknown") + "</b>"
+        + (supported ? " &middot; <b>supported</b>"
+                     : " &middot; not in this build's kernel table");
+
+    var target = "jb.html" + location.search;
+    function go() { setState("جاري تشغيل الصفحة...", "warn"); location.replace(target); }
+
+    function waitForTap(msg, action) {
+        setState(msg, "warn");
+        function fire() {
+            window.removeEventListener("click", fire);
+            window.removeEventListener("keydown", fire);
+            action();
+        }
+        window.addEventListener("click", fire);
+        window.addEventListener("keydown", fire);
+    }
+
+    // Off-target consoles are not launched automatically -- one tap still runs
+    // it, so a user-agent quirk on the real 13.52 console can never lock it out.
+    if (!supported) {
+        setState("إصدار النظام غير مدعوم", "bad");
+        waitForTap("غير مدعوم (" + (key || "unknown") + ") — اضغط X أو المس الشاشة للمتابعة", go);
+        return;
+    }
+
+    var ac = window.applicationCache;
+    if (!ac || !document.documentElement.hasAttribute("manifest")) {
+        go();
+    } else if (!navigator.onLine) {
+        setCache("غير متصل — من الذاكرة المؤقتة", true);
+        go();
+    } else if (ac.status === ac.IDLE) {
+        setCache("تم التخزين", true);
+        go();
+    } else if (ac.status === ac.UPDATEREADY) {
+        try { ac.swapCache(); } catch (e) {}
+        setCache("تم تنزيل التحديث", true);
+        waitForTap("التحديث جاهز — اضغط X أو المس الشاشة لإعادة التحميل والتشغيل",
+                   function () { location.reload(); });
+    } else {
+        setCache("جاري فحص الذاكرة المؤقتة...");
+        ac.addEventListener("downloading",
+            function () { setCache("جاري التخزين للاستخدام دون اتصال (أول تشغيل)..."); }, false);
+        ac.addEventListener("progress", function (e) {
+            if (e && e.total)
+                setCache("جاري التخزين " + Math.round((e.loaded / e.total) * 100) + "%");
+        }, false);
+        ac.addEventListener("تم التخزين", function () {
+            setCache("تم التخزين للاستخدام دون اتصال", true);
+            waitForTap("تم التخزين — اضغط X أو المس الشاشة للتشغيل", go);
+        }, false);
+        ac.addEventListener("updateready", function () {
+            try { ac.swapCache(); } catch (e) {}
+            setCache("تم تنزيل التحديث", true);
+            waitForTap("التحديث جاهز — اضغط X أو المس الشاشة لإعادة التحميل والتشغيل",
+                       function () { location.reload(); });
+        }, false);
+        ac.addEventListener("noupdate", function () {
+            setCache("تم التخزين — جاهز للعمل دون اتصال", true);
+            go();
+        }, false);
+        ac.addEventListener("error", function () {
+            setCache("الذاكرة المؤقتة غير متاحة");
+            waitForTap("فشل التخزين — اضغط X أو المس الشاشة للمتابعة", go);
+        }, false);
+        ac.addEventListener("obsolete", function () {
+            setCache("الذاكرة المؤقتة منتهية");
+            waitForTap("الذاكرة المؤقتة منتهية — اضغط X أو المس الشاشة للتشغيل", go);
+        }, false);
+    }
+})();
+</script>
+</body>
+</html>
