@@ -5,6 +5,8 @@ import { offsetsFor } from "./ps4_offsets.js";
 
 const outEl = document.getElementById("out");
 const stateEl = document.getElementById("state");
+const centerStatusEl = document.getElementById("centerStatus");
+const centerDetailEl = document.getElementById("centerDetail");
 const lines = [];
 let passCount = 0,
   failCount = 0;
@@ -57,6 +59,7 @@ function mark(tag, detail) {
   const raw = detail;
   detail = terse(detail);
   lines.push(tag + (detail == null || detail === "" ? "" : "  " + detail));
+  centerMessage(tag, raw);
   if (SHOW_LOG && outEl) {
     const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;");
     outEl.innerHTML = lines
@@ -85,10 +88,35 @@ function trace(tag, detail) {
   else post(tag, detail);
 }
 function state(t, c) {
-  if (!SHOW_LOG || !stateEl) return;
-  stateEl.textContent = t;
-  stateEl.className = c || "";
+  if (stateEl && SHOW_LOG) {
+    stateEl.textContent = t;
+    stateEl.className = c || "";
+  }
+  if (centerStatusEl) {
+    centerStatusEl.textContent = t;
+    centerStatusEl.className = c || "";
+  }
 }
+
+function centerMessage(tag, detail) {
+  if (!centerStatusEl) return;
+  const map = {
+    "KPATCH-BLOB": "جاري تحميل ملفات النظام...",
+    "PAYLOAD-BLOB": "جاري تحميل الملفات...",
+    "KPATCH-FETCH-THREW": "تعذر تحميل أحد الملفات",
+    "PAYLOAD-FETCH-THREW": "تعذر تحميل أحد الملفات",
+    "PROOF-OK": "جاري تجهيز الملفات...",
+    "PROOF-FAIL": "حدث خطأ أثناء التجهيز",
+    "KRW-API": "جاري تجهيز الملفات...",
+    "EG-GATE": "جاري إنهاء التجهيز...",
+    "PROOF-SUMMARY-FINAL": "اكتمل التجهيز"
+  };
+  centerStatusEl.textContent = map[tag] || centerStatusEl.textContent || "جاري تجهيز الملفات...";
+  if (centerDetailEl && detail) {
+    centerDetailEl.textContent = String(detail);
+  }
+}
+
 function check(name, ok, detail) {
   if (ok) {
     passCount++;

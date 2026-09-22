@@ -58,6 +58,37 @@
           transform: rotate(360deg);
         }
       }
+      #centerStatus {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(86vw, 620px);
+        padding: 16px 20px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 19px;
+        font-weight: 700;
+        color: #f0f4f8;
+        background: rgba(8, 11, 15, .82);
+        border: 1px solid rgba(127, 208, 160, .35);
+        border-radius: 10px;
+        box-shadow: 0 8px 30px rgba(0,0,0,.35);
+        z-index: 3;
+      }
+      #centerDetail {
+        position: fixed;
+        top: calc(50% + 48px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(86vw, 620px);
+        text-align: center;
+        font-size: 13px;
+        color: #aeb8c5;
+        z-index: 3;
+        direction: ltr;
+        overflow-wrap: anywhere;
+      }
       #msg {
         position: fixed;
         top: 50%;
@@ -77,11 +108,16 @@
         display: none;
       }
 
-      body.done #spin {
+      body.done #spin,
+      body.done #centerStatus,
+      body.done #centerDetail {
         display: none;
       }
       body.fail #spin {
         display: none;
+      }
+      body.fail #centerStatus {
+        border-color: rgba(208, 138, 127, .45);
       }
       body.fail #msg {
         display: block;
@@ -147,6 +183,8 @@
       <img src="icon.png" alt="عالم الالكترونيات" width="36" height="36"><b>عالم الالكترونيات</b>
     </div>
     <div id="spin"></div>
+    <div id="centerStatus" aria-live="polite">جاري تجهيز الملفات...</div>
+    <div id="centerDetail"></div>
     <div id="msg">Restart your console</div>
     <div id="wrap">
       <div id="state"></div>
